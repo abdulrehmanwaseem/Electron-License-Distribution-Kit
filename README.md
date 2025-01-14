@@ -1,4 +1,4 @@
-# Electron-License-Distrition-template
+# Electron-License-Distribution-template
 
 A modern TypeScript-based template for securely distributing Electron applications with integrated licensing and code protection. This template leverages powerful tools like **React**, **Vite**, **Tailwind CSS**, **Keygen.sh**, and **Bytenode** to deliver a fast, customizable, and secure development experience.
 
