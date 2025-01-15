@@ -28,6 +28,13 @@ function createWindow(): void {
     return { action: 'deny' }
   })
 
+  //* Disable developer tools in production
+  if (import.meta.env.prod) {
+    mainWindow.webContents.on('devtools-opened', () => {
+      mainWindow.webContents.closeDevTools()
+    })
+  }
+
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
