@@ -17,6 +17,8 @@ function createWindow(): void {
     }
   })
 
+  console.log(import.meta.env.MAIN_VITE_TEST)
+
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
