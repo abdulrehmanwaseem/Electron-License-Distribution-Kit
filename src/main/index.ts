@@ -3,12 +3,41 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+const isDev = import.meta.env.DEV
+
+async function gateCreateWindowWithLicense(createWindow) {
+  const gateWindow = new BrowserWindow({
+    resizable: false,
+    frame: false,
+    width: 420,
+    height: 200,
+    webPreferences: {
+      preload: join(__dirname, '../preload/licenseGate.js'),
+      devTools: isDev
+    }
+  })
+
+  gateWindow.loadFile(join(__dirname, '../renderer/licenseGate.html'))
+
+  if (isDev) {
+    gateWindow.webContents.openDevTools({ mode: 'detach' })
+  }
+
+  ipcMain.on('GATE_SUBMIT', async (_event, { key }) => {
+    // Close the license gate window
+    gateWindow.close()
+
+    // Launch our main window
+    createWindow()
+  })
+}
+
+// Main Window
 function createWindow(): void {
-  const isDev = import.meta.env.DEV
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 1024,
+    height: 768,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -19,8 +48,6 @@ function createWindow(): void {
     }
   })
 
-  console.log(import.meta.env.MAIN_VITE_TEST)
-
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
@@ -29,7 +56,7 @@ function createWindow(): void {
     mainWindow.webContents.openDevTools({ mode: 'detach' })
   }
 
-  // Disable developer tools in production
+  // *Disable developer tools in production
   if (!isDev) {
     mainWindow.webContents.on('devtools-opened', () => {
       mainWindow.webContents.closeDevTools()
@@ -67,7 +94,8 @@ app.whenReady().then(() => {
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
 
-  createWindow()
+  // Open main window after license window
+  gateCreateWindowWithLicense(createWindow)
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
