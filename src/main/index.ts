@@ -40,6 +40,7 @@ function createWindow(): void {
     height: 768,
     show: false,
     autoHideMenuBar: true,
+    frame: false,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -95,7 +96,8 @@ app.whenReady().then(() => {
   ipcMain.on('ping', () => console.log('pong'))
 
   // Open main window after license window
-  gateCreateWindowWithLicense(createWindow)
+  // gateCreateWindowWithLicense(createWindow)
+  createWindow()
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
