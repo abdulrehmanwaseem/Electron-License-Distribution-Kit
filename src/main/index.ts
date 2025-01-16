@@ -93,7 +93,30 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  // ipcMain.on('ping', () => console.log('pong'))
+
+  ipcMain.on('close-window', () => {
+    const currentWindow = BrowserWindow.getFocusedWindow()
+
+    if (currentWindow) {
+      currentWindow.close()
+    }
+  })
+  ipcMain.on('fullscreen-window', () => {
+    const currentWindow = BrowserWindow.getFocusedWindow()
+
+    if (currentWindow) {
+      const isFullscreen = currentWindow.isFullScreen()
+      currentWindow.setFullScreen(!isFullscreen) // Toggle fullscreen
+    }
+  })
+  ipcMain.on('minimize-window', () => {
+    const currentWindow = BrowserWindow.getFocusedWindow()
+
+    if (currentWindow) {
+      currentWindow.minimize()
+    }
+  })
 
   // Open main window after license window
   // gateCreateWindowWithLicense(createWindow)
