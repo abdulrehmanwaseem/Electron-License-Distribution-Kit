@@ -3,6 +3,7 @@
 A modern TypeScript-based template for securely distributing Electron applications with integrated licensing and code protection. This template leverages powerful tools like **React**, **Vite**, **Tailwind CSS**, **Keygen.sh**, and **Bytenode** to deliver a fast, customizable, and secure development experience.
 
 ### Features:
+
 - **React Integration**: Build interactive user interfaces with React.
 - **TypeScript Support**: Write scalable and maintainable code with full TypeScript integration.
 - **Tailwind CSS**: Style your app effortlessly with a utility-first CSS framework.
@@ -10,14 +11,17 @@ A modern TypeScript-based template for securely distributing Electron applicatio
 - **Code Protection**: Secures your TypeScript/JavaScript code by compiling it to binary format using Bytenode.
 - **Optimized Build**: Uses Vite for fast development, hot module replacement (HMR), and optimized production builds.
 - **Customizable Distribution**: A flexible solution for deploying secure, licensed Electron applications.
+- **Custom Top Bar**: Includes a custom top bar with fullscreen, minimize, and close window functionality for a polished user experience.
 
 ### Use Cases:
+
 - Protect commercial Electron applications from unauthorized use and redistribution.
 - Secure sensitive business logic with binary-compiled code.
 - Build modern, feature-rich apps with React, styled using Tailwind CSS.
 - Implement scalable, license-based distribution systems for Electron applications.
 
 ### Getting Started:
+
 1. Clone the repository.
 2. Install dependencies:
    ```bash
@@ -40,7 +44,9 @@ A modern TypeScript-based template for securely distributing Electron applicatio
    ```
 
 ### Technologies Used:
+
 - **[Electron](https://www.electronjs.org/)**: For building cross-platform desktop applications.
+- **[ElectronVite](https://electron-vite.org/)**: Next Generation Electron Build Tooling
 - **[React](https://reactjs.org/)**: For building dynamic user interfaces.
 - **[Vite](https://vitejs.dev/)**: A fast, modern frontend build tool.
 - **[Tailwind CSS](https://tailwindcss.com/)**: A utility-first CSS framework for rapid UI design.
@@ -48,7 +54,9 @@ A modern TypeScript-based template for securely distributing Electron applicatio
 - **[Bytenode](https://github.com/bytenode/bytenode)**: For securing TypeScript/JavaScript code by converting it into binary format.
 
 ### Contributions:
+
 We welcome contributions! Feel free to open issues or submit pull requests to enhance this template.
 
 ### License:
+
 This project is provided under MIT. See the `LICENSE` file for details.

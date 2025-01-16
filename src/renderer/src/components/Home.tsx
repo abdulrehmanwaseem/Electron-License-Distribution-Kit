@@ -1,6 +1,24 @@
 import { Code2, Zap, Lock, Box, Github, Linkedin } from 'lucide-react'
 
 const Home = () => {
+  const featureCards = [
+    {
+      icon: <Lock className="w-6 h-6 text-emerald-400" />,
+      title: 'Secure Distribution',
+      description: 'Safely distribute and manage software licenses'
+    },
+    {
+      icon: <Zap className="w-6 h-6 text-yellow-400" />,
+      title: 'Lightning Fast',
+      description: 'Built with performance and efficiency in mind'
+    },
+    {
+      icon: <Code2 className="w-6 h-6 text-purple-400" />,
+      title: 'Developer Friendly',
+      description: 'Modern tech stack with TypeScript support'
+    }
+  ]
+
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-8 relative overflow-hidden">
       {/* Background Glow Effect */}
@@ -27,26 +45,9 @@ const Home = () => {
             TypeScript
           </span>
         </div>
-
         {/* Feature Cards */}
         <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {[
-            {
-              icon: <Lock className="w-6 h-6 text-emerald-400" />,
-              title: 'Secure Distribution',
-              description: 'Safely distribute and manage software licenses'
-            },
-            {
-              icon: <Zap className="w-6 h-6 text-yellow-400" />,
-              title: 'Lightning Fast',
-              description: 'Built with performance and efficiency in mind'
-            },
-            {
-              icon: <Code2 className="w-6 h-6 text-purple-400" />,
-              title: 'Developer Friendly',
-              description: 'Modern tech stack with TypeScript support'
-            }
-          ].map((feature, index) => (
+          {featureCards.map((feature, index) => (
             <div
               key={index}
               className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300 hover:transform hover:-translate-y-1"
@@ -59,15 +60,14 @@ const Home = () => {
             </div>
           ))}
         </div>
-
         <div className="flex justify-center gap-8">
           <div className="mt-12 inline-flex items-center px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-sm">
-            Author: <span className="ml-1 text-emerald-400 font-mono">Abdul Rehman</span>
+            Author: <span className="ml-2 text-emerald-400 font-mono">Abdul Rehman</span>
           </div>
-          <div className="mt-12 inline-flex items-center px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-sm">
+          <div className="mt-12 inline-flex items-center px-3 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 text-sm">
             Github:{' '}
             <a
-              className="ml-1 text-emerald-400 font-mono"
+              className="ml-2 text-emerald-400 font-mono"
               href="https://github.com/abdulrehmanwaseem"
               target="_blank"
             >
@@ -77,7 +77,7 @@ const Home = () => {
           <div className="mt-12 inline-flex items-center px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-sm">
             Linkedin:{' '}
             <a
-              className="ml-1 text-emerald-400 font-mono"
+              className="ml-2 text-emerald-400 font-mono"
               href="https://pk.linkedin.com/in/abdulrehmanwaseem"
               target="_blank"
             >

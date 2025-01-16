@@ -53,9 +53,9 @@ function createWindow(): void {
     mainWindow.show()
   })
 
-  if (isDev) {
-    mainWindow.webContents.openDevTools({ mode: 'detach' })
-  }
+  // if (isDev) {
+  //   mainWindow.webContents.openDevTools({ mode: 'detach' })
+  // }
 
   // *Disable developer tools in production
   if (!isDev) {
