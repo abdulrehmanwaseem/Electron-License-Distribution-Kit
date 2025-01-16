@@ -66,15 +66,23 @@ const Home = () => {
           </div>
           <div className="mt-12 inline-flex items-center px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-sm">
             Github:{' '}
-            <span className="ml-1 text-emerald-400 font-mono">
+            <a
+              className="ml-1 text-emerald-400 font-mono"
+              href="https://github.com/abdulrehmanwaseem"
+              target="_blank"
+            >
               <Github size={20} />
-            </span>
+            </a>
           </div>
           <div className="mt-12 inline-flex items-center px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-sm">
             Linkedin:{' '}
-            <span className="ml-1 text-emerald-400 font-mono">
+            <a
+              className="ml-1 text-emerald-400 font-mono"
+              href="https://pk.linkedin.com/in/abdulrehmanwaseem"
+              target="_blank"
+            >
               <Linkedin size={20} />
-            </span>
+            </a>
           </div>
         </div>
       </div>

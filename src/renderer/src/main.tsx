@@ -8,7 +8,7 @@ import Topbar from './components/Topbar'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <>
-      <Topbar />
+      <Topbar title="Electron License Distribution Kit" />
       <App />
     </>
   </React.StrictMode>
