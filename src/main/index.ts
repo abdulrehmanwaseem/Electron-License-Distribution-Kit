@@ -2,39 +2,13 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-
-const isDev = import.meta.env.DEV
-
-async function gateCreateWindowWithLicense(createWindow) {
-  const gateWindow = new BrowserWindow({
-    resizable: false,
-    frame: false,
-    width: 420,
-    height: 200,
-    webPreferences: {
-      preload: join(__dirname, '../preload/licenseGate.js'),
-      devTools: isDev
-    }
-  })
-
-  gateWindow.loadFile(join(__dirname, '../renderer/licenseGate.html'))
-
-  if (isDev) {
-    gateWindow.webContents.openDevTools({ mode: 'detach' })
-  }
-
-  ipcMain.on('GATE_SUBMIT', async (_event, { key }) => {
-    // Close the license gate window
-    gateWindow.close()
-
-    // Launch our main window
-    createWindow()
-  })
-}
+import gateCreateWindowWithLicense from './licenseGate'
 
 // Main Window
 function createWindow(): void {
   // Create the browser window.
+  const isDev = import.meta.env.DEV
+
   const mainWindow = new BrowserWindow({
     width: 1024,
     height: 768,
@@ -119,8 +93,8 @@ app.whenReady().then(() => {
   })
 
   // Open main window after license window
-  // gateCreateWindowWithLicense(createWindow)
-  createWindow()
+  gateCreateWindowWithLicense(createWindow)
+  // createWindow()
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

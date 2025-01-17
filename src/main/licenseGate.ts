@@ -1,14 +1,33 @@
-import { ipcRenderer } from 'electron'
+import { BrowserWindow, ipcMain } from 'electron'
+import { join } from 'path'
 
-window.addEventListener('DOMContentLoaded', () => {
-  const gate = document.getElementById('license-gate')
+async function gateCreateWindowWithLicense(createWindow) {
+  const isDev = import.meta.env.DEV
 
-  gate.addEventListener('submit', async (event) => {
-    event.preventDefault()
-
-    const data = new FormData(gate)
-    const key = data.get('key')
-
-    ipcRenderer.send('GATE_SUBMIT', { key })
+  const gateWindow = new BrowserWindow({
+    resizable: false,
+    frame: false,
+    width: 420,
+    height: 200,
+    webPreferences: {
+      preload: join(__dirname, '../preload/licenseGate.js'),
+      devTools: isDev
+    }
   })
-})
+
+  gateWindow.loadFile(join(__dirname, '../renderer/licenseGate.html'))
+
+  if (isDev) {
+    gateWindow.webContents.openDevTools({ mode: 'detach' })
+  }
+
+  ipcMain.on('GATE_SUBMIT', async (_event, { key }) => {
+    // Close the license gate window
+    gateWindow.close()
+
+    // Launch our main window
+    createWindow()
+  })
+}
+
+export default gateCreateWindowWithLicense

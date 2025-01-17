@@ -57,6 +57,10 @@ A modern TypeScript-based template for securely distributing Electron applicatio
 
 We welcome contributions! Feel free to open issues or submit pull requests to enhance this template.
 
+## Security
+
+Looking to report a vulnerability? Please refer our [SECURITY.md](./SECURITY.md) file.
+
 ### License:
 
 This project is provided under MIT. See the `LICENSE` file for details.
