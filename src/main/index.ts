@@ -9,10 +9,11 @@ if (!gotTheLock) {
     app.quit()
 }
 
+const isDev = import.meta.env.DEV
+
 // Main Window
 function createWindow(): void {
     // Create the browser window.
-    const isDev = import.meta.env.DEV
 
     const mainWindow = new BrowserWindow({
         width: 1024,
@@ -31,6 +32,10 @@ function createWindow(): void {
     mainWindow.on('ready-to-show', () => {
         mainWindow.show()
     })
+
+    if (isDev) {
+        mainWindow.webContents.openDevTools({ mode: 'detach' })
+    }
 
     // *Disable developer tools in production
     if (!isDev) {
@@ -68,7 +73,7 @@ app.whenReady().then(() => {
     })
 
     // Open main window after license window
-    gateCreateWindowWithLicense(createWindow, icon)
+    gateCreateWindowWithLicense(createWindow, icon, isDev)
     // createWindow()
 
     // Topbar functionality handlers:

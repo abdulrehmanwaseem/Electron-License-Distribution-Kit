@@ -14,7 +14,7 @@ export default defineConfig({
         build: {
             rollupOptions: {
                 input: {
-                    app: resolve(__dirname, 'src/preload/index.ts'),
+                    index: resolve(__dirname, 'src/preload/index.ts'),
                     licenseGate: resolve(__dirname, 'src/preload/licenseGate.ts'),
                 },
             },
@@ -25,7 +25,7 @@ export default defineConfig({
             sourcemap: true,
             rollupOptions: {
                 input: {
-                    app: resolve(__dirname, 'src/renderer/index.html'),
+                    index: resolve(__dirname, 'src/renderer/index.html'),
                     licenseGate: resolve(__dirname, 'src/renderer/licenseGate.html'),
                 },
             },

@@ -2,9 +2,7 @@ import { BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
 
-async function gateCreateWindowWithLicense(createWindow, icon) {
-    const isDev = import.meta.env.DEV
-
+async function gateCreateWindowWithLicense(createWindow, icon = '', isDev = false) {
     const licenseGateWindow = new BrowserWindow({
         resizable: false,
         frame: false,
