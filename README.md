@@ -5,13 +5,13 @@ A modern TypeScript-based template for securely distributing Electron applicatio
 ### Features:
 
 - **React Integration**: Build interactive user interfaces with React.
-- **TypeScript Support**: Write scalable and maintainable code with full TypeScript integration.
-- **Tailwind CSS**: Style your app effortlessly with a utility-first CSS framework.
 - **Secure Licensing**: Integrates with Keygen.sh for license generation and validation.
 - **Code Protection**: Secures your TypeScript/JavaScript code by compiling it to binary format using Bytenode.
+- **Custom Top Bar**: Includes a custom top bar with fullscreen, minimize, and close window functionality for a polished user experience.
+- **TypeScript Support**: Write scalable and maintainable code with full TypeScript integration.
+- **Tailwind CSS**: Style your app effortlessly with a utility-first CSS framework.
 - **Optimized Build**: Uses Vite for fast development, hot module replacement (HMR), and optimized production builds.
 - **Customizable Distribution**: A flexible solution for deploying secure, licensed Electron applications.
-- **Custom Top Bar**: Includes a custom top bar with fullscreen, minimize, and close window functionality for a polished user experience.
 
 ### Use Cases:
 
@@ -24,24 +24,24 @@ A modern TypeScript-based template for securely distributing Electron applicatio
 
 1. Clone the repository.
 2. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 3. Configure app details and licensing rules in the provided setup files.
 4. Start the development server:
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    ```
 5. Build your secure, licensed application:
-   ```bash
-   npm run build
-   # or
-   yarn build
-   ```
+    ```bash
+    npm run build
+    # or
+    yarn build
+    ```
 
 ### Technologies Used:
 
