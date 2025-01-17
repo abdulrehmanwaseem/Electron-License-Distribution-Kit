@@ -1,8 +1,22 @@
 import { BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
+import Store from 'electron-store'
 
-async function validateLicenseKey(key) {
+type StoreSchema = {
+    licenseKey: string
+}
+
+// Paths where electron-store, store's data:
+
+// Operating System	    Default Path
+// Windows             	%APPDATA%/<app-name>/config.json
+// macOS	            ~/Library/Application Support/<app-name>/config.json
+// Linux	            ~/.config/<app-name>/config.json
+
+const store = new Store<StoreSchema>()
+
+async function validateLicenseKey(key: string): Promise<string | null> {
     // Demo api link for idea:
     const DEMO_API = `https://api.keygen.sh/v1/accounts/demo/licenses/actions/validate-key`
 
@@ -25,7 +39,19 @@ async function validateLicenseKey(key) {
     return meta.code
 }
 
-async function gateCreateWindowWithLicense(createWindow, icon = '', isDev = false) {
+async function gateCreateWindowWithLicense(createWindow: () => void, icon = '', isDev = false) {
+    // Check if a valid license key exists in the store
+    const storedKey = store.get('licenseKey')
+    if (storedKey) {
+        const code = await validateLicenseKey(storedKey)
+        if (code === 'VALID') {
+            createWindow() // Launch the main window directly
+            return
+        } else {
+            store.delete('licenseKey') // Remove the invalid key
+        }
+    }
+
     const licenseGateWindow = new BrowserWindow({
         resizable: false,
         frame: false,
@@ -55,6 +81,9 @@ async function gateCreateWindowWithLicense(createWindow, icon = '', isDev = fals
         console.log(code)
 
         if (code === 'VALID') {
+            // Close the license gate window
+            store.set('licenseKey', key)
+
             // Close the license gate window
             licenseGateWindow.close()
 

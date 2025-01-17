@@ -23,14 +23,14 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
-    "electron-store": "^10.0.0",
-    "lucide-react": "^0.471.1",
-    "node-fetch": "^2.7.0"
+    "electron-store": "^8.2.0",
+    "lucide-react": "^0.471.1"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",
     "@electron-toolkit/eslint-config-ts": "^2.0.0",
     "@electron-toolkit/tsconfig": "^1.0.1",
+    "@types/electron-store": "^3.2.2",
     "@types/node": "^20.14.8",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
