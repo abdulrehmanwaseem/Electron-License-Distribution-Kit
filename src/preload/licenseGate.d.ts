@@ -1,9 +1,9 @@
 interface Api {
-  licenseGateHandler: (licenseKey: string) => Promise<unknown>
+    licenseGateHandler: (licenseKey: string) => Promise<unknown>
 }
 
 declare global {
-  interface Window {
-    api: Api
-  }
+    interface Window {
+        api: Api
+    }
 }

@@ -10,8 +10,9 @@ const LicenseGate = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         // setValidationStatus('validating')
-        console.log(licenseKey)
 
+        const test = await window.api.licenseGateHandler(licenseKey)
+        console.log(test)
         // if (submit) {
         //     setValidationStatus('success')
         // } else {
@@ -45,7 +46,7 @@ const LicenseGate = () => {
                             type="text"
                             value={licenseKey}
                             onChange={(e) => setLicenseKey(e.target.value)}
-                            className="block w-full py-3 pl-10 pr-3 text-gray-600 placeholder-gray-400 transition-all duration-300 border-2 border-white/10 rounded-xl bg-white/5 focus:outline-none focus:border-blue-400"
+                            className="block w-full py-3 pl-10 pr-3 text-gray-600 placeholder-gray-400 transition-all duration-300 border-2 border-gray-400 rounded-xl bg-white/5 focus:outline-none focus:border-blue-400"
                             placeholder="XXXX-XXXX-XXXX-XXXX"
                             spellCheck="false"
                             autoComplete="off"

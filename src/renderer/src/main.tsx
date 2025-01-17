@@ -7,12 +7,12 @@ import Topbar from './components/Topbar'
 import MacTopbar from './components/MacTopbar'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <>
-      <Topbar title="Electron License Distribution Kit" />
-      {/* <MacTopbar title="Electron License Distribution Kit" /> */}
+    <React.StrictMode>
+        <>
+            <Topbar title="Electron License Distribution Kit" />
+            {/* <MacTopbar title="Electron License Distribution Kit" /> */}
 
-      <App />
-    </>
-  </React.StrictMode>
+            <App />
+        </>
+    </React.StrictMode>
 )

@@ -1,9 +1,8 @@
 import { BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
-import icon from '../../resources/icon.png?asset'
 import { is } from '@electron-toolkit/utils'
 
-async function gateCreateWindowWithLicense(createWindow) {
+async function gateCreateWindowWithLicense(createWindow, icon) {
     const isDev = import.meta.env.DEV
 
     const licenseGateWindow = new BrowserWindow({
@@ -15,6 +14,7 @@ async function gateCreateWindowWithLicense(createWindow) {
         ...(process.platform === 'linux' ? { icon } : {}),
         webPreferences: {
             preload: join(__dirname, '../preload/licenseGate.js'),
+            sandbox: false,
             devTools: isDev,
         },
     })
@@ -29,12 +29,15 @@ async function gateCreateWindowWithLicense(createWindow) {
         licenseGateWindow.loadFile(join(__dirname, '../renderer/licenseGate.html'))
     }
 
-    ipcMain.on('GATE_SUBMIT', async (_event, { key }) => {
+    ipcMain.handle('GATE_SUBMIT', async (_event, test) => {
+        console.log(test)
         // Close the license gate window
-        licenseGateWindow.close()
+        // licenseGateWindow.close()
 
         // Launch our main window
-        createWindow()
+        // createWindow()
+
+        return test
     })
 }
 

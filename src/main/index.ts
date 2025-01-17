@@ -67,6 +67,10 @@ app.whenReady().then(() => {
         optimizer.watchWindowShortcuts(window)
     })
 
+    // Open main window after license window
+    gateCreateWindowWithLicense(createWindow, icon)
+    // createWindow()
+
     // Topbar functionality handlers:
     ipcMain.on('close-window', () => {
         const currentWindow = BrowserWindow.getFocusedWindow()
@@ -90,10 +94,6 @@ app.whenReady().then(() => {
             currentWindow.minimize()
         }
     })
-
-    // Open main window after license window
-    gateCreateWindowWithLicense(createWindow)
-    // createWindow()
 
     app.on('activate', function () {
         // On macOS it's common to re-create a window in the app when the
