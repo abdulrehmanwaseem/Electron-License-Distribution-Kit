@@ -1,6 +1,14 @@
 import { useState } from 'react'
 import { Shield, Key, CheckCircle2, XCircle } from 'lucide-react'
 
+declare global {
+    interface Window {
+        api: {
+            licenseGateHandler: (licenseKey: string) => Promise<Boolean>
+        }
+    }
+}
+
 const LicenseGate = () => {
     const [licenseKey, setLicenseKey] = useState('')
     const [validationStatus, setValidationStatus] = useState<
@@ -9,15 +17,20 @@ const LicenseGate = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        // setValidationStatus('validating')
+        setValidationStatus('validating')
 
-        const test = await window.api.licenseGateHandler(licenseKey)
-        console.log(test)
-        // if (submit) {
-        //     setValidationStatus('success')
-        // } else {
-        //     setValidationStatus('error')
-        // }
+        try {
+            const result = await window.api.licenseGateHandler(licenseKey)
+
+            if (result) {
+                setValidationStatus('success')
+            } else {
+                setValidationStatus('error')
+            }
+        } catch (error) {
+            console.error('Error validating license key:', error)
+            setValidationStatus('error')
+        }
     }
 
     return (

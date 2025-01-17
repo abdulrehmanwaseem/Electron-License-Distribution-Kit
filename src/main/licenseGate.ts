@@ -30,14 +30,17 @@ async function gateCreateWindowWithLicense(createWindow, icon) {
     }
 
     ipcMain.handle('GATE_SUBMIT', async (_event, test) => {
-        console.log(test)
-        // Close the license gate window
-        // licenseGateWindow.close()
+        if (test === 'test') {
+            // Close the license gate window
+            licenseGateWindow.close()
 
-        // Launch our main window
-        // createWindow()
+            // Launch our main window
+            createWindow()
 
-        return test
+            return true
+        }
+
+        return false
     })
 }
 
