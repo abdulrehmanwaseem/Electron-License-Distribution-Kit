@@ -1,14 +1,14 @@
+<!doctype html>
 <html>
-  <head>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
-    <title>License Gate</title>
-    <link rel="stylesheet" href="./index.css" />
-  </head>
-  <body>
-    <form id="license-gate">
-      <label for="key"> Please enter your license key </label>
-      <input name="key" type="text" placeholder="Your license key" />
-      <button type="submit">Submit</button>
-    </form>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>License Gate</title>
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:" />
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="./src/mainLicenseGate.tsx"></script>
+    </body>
 </html>

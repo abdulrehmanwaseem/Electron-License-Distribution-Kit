@@ -1,33 +1,41 @@
 import { BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
+import icon from '../../resources/icon.png?asset'
+import { is } from '@electron-toolkit/utils'
 
 async function gateCreateWindowWithLicense(createWindow) {
-  const isDev = import.meta.env.DEV
+    const isDev = import.meta.env.DEV
 
-  const gateWindow = new BrowserWindow({
-    resizable: false,
-    frame: false,
-    width: 420,
-    height: 200,
-    webPreferences: {
-      preload: join(__dirname, '../preload/licenseGate.js'),
-      devTools: isDev
+    const licenseGateWindow = new BrowserWindow({
+        resizable: false,
+        frame: false,
+        width: 520,
+        height: 415,
+        autoHideMenuBar: true,
+        ...(process.platform === 'linux' ? { icon } : {}),
+        webPreferences: {
+            preload: join(__dirname, '../preload/licenseGate.js'),
+            devTools: isDev,
+        },
+    })
+
+    if (isDev) {
+        licenseGateWindow.webContents.openDevTools({ mode: 'detach' })
     }
-  })
 
-  gateWindow.loadFile(join(__dirname, '../renderer/licenseGate.html'))
+    if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+        licenseGateWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/licenseGate.html`)
+    } else {
+        licenseGateWindow.loadFile(join(__dirname, '../renderer/licenseGate.html'))
+    }
 
-  if (isDev) {
-    gateWindow.webContents.openDevTools({ mode: 'detach' })
-  }
+    ipcMain.on('GATE_SUBMIT', async (_event, { key }) => {
+        // Close the license gate window
+        licenseGateWindow.close()
 
-  ipcMain.on('GATE_SUBMIT', async (_event, { key }) => {
-    // Close the license gate window
-    gateWindow.close()
-
-    // Launch our main window
-    createWindow()
-  })
+        // Launch our main window
+        createWindow()
+    })
 }
 
 export default gateCreateWindowWithLicense
