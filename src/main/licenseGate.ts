@@ -7,6 +7,8 @@ type StoreSchema = {
     licenseKey: string
 }
 
+let licenseGateWindow: BrowserWindow | null = null
+
 // Paths where electron-store, store's data:
 
 // Operating System	    Default Path
@@ -39,20 +41,28 @@ async function validateLicenseKey(key: string): Promise<string | null> {
     return meta.code
 }
 
-async function gateCreateWindowWithLicense(createWindow: () => void, icon = '', isDev = false) {
+async function gateCreateWindowWithLicense(
+    createWindow: () => void,
+    mainWindow: BrowserWindow | null,
+    icon = '',
+    isDev = false
+) {
     // Check if a valid license key exists in the store
     const storedKey = store.get('licenseKey')
     if (storedKey) {
         const code = await validateLicenseKey(storedKey)
         if (code === 'VALID') {
-            createWindow() // Launch the main window directly
+            if (!mainWindow) {
+                // Only create the main window if it doesn't exist
+                createWindow()
+            }
             return
         } else {
             store.delete('licenseKey') // Remove the invalid key
         }
     }
 
-    const licenseGateWindow = new BrowserWindow({
+    licenseGateWindow = new BrowserWindow({
         resizable: false,
         frame: false,
         width: 520,
@@ -64,6 +74,10 @@ async function gateCreateWindowWithLicense(createWindow: () => void, icon = '', 
             sandbox: false,
             devTools: isDev,
         },
+    })
+
+    licenseGateWindow.on('closed', () => {
+        licenseGateWindow = null
     })
 
     if (isDev) {
@@ -85,7 +99,7 @@ async function gateCreateWindowWithLicense(createWindow: () => void, icon = '', 
             store.set('licenseKey', key)
 
             // Close the license gate window
-            licenseGateWindow.close()
+            licenseGateWindow?.close()
 
             // Launch our main window
             createWindow()

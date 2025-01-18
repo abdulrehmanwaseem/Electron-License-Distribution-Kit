@@ -11,11 +11,13 @@ if (!gotTheLock) {
 
 const isDev = import.meta.env.DEV
 
+let mainWindow: BrowserWindow | null = null
+
 // Main Window
 function createWindow(): void {
     // Create the browser window.
 
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         width: 1024,
         height: 768,
         show: false,
@@ -30,7 +32,7 @@ function createWindow(): void {
     })
 
     mainWindow.on('ready-to-show', () => {
-        mainWindow.show()
+        mainWindow?.show()
     })
 
     if (isDev) {
@@ -40,13 +42,17 @@ function createWindow(): void {
     // *Disable developer tools in production
     if (!isDev) {
         mainWindow.webContents.on('devtools-opened', () => {
-            mainWindow.webContents.closeDevTools()
+            mainWindow?.webContents.closeDevTools()
         })
     }
 
     mainWindow.webContents.setWindowOpenHandler((details) => {
         shell.openExternal(details.url)
         return { action: 'deny' }
+    })
+
+    mainWindow.on('closed', () => {
+        mainWindow = null
     })
 
     // HMR for renderer base on electron-vite cli.
@@ -73,7 +79,7 @@ app.whenReady().then(() => {
     })
 
     // Open main window after license window
-    gateCreateWindowWithLicense(createWindow, icon, isDev)
+    gateCreateWindowWithLicense(createWindow, mainWindow, icon, isDev)
     // createWindow()
 
     // Topbar functionality handlers:
