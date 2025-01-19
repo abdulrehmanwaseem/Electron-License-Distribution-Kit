@@ -14,6 +14,7 @@ A modern TypeScript-based template for securely distributing Electron applicatio
 - **Code Protection**: Secures your TypeScript/JavaScript code by compiling it to binary format using Bytenode.
 - **Custom Top Bar**: Includes a custom top bar with fullscreen, minimize, and close window functionality for a polished user experience.
 - **TypeScript Support**: Write scalable and maintainable code with full TypeScript integration.
+- **Error Tracking**: Integrated with Sentry.io to capture runtime errors and improve app stability.
 - **Tailwind CSS**: Style your app effortlessly with a utility-first CSS framework.
 - **Optimized Build**: Uses Vite for fast development, hot module replacement (HMR), and optimized production builds.
 - **Customizable Distribution**: A flexible solution for deploying secure, licensed Electron applications.
@@ -24,6 +25,7 @@ A modern TypeScript-based template for securely distributing Electron applicatio
 - Secure sensitive business logic with binary-compiled code.
 - Build modern, feature-rich apps with React, styled using Tailwind CSS.
 - Implement scalable, license-based distribution systems for Electron applications.
+- Track and fix errors effectively using Sentry.io to monitor your app in production.
 
 ### Getting Started:
 
@@ -34,7 +36,7 @@ A modern TypeScript-based template for securely distributing Electron applicatio
     # or
     yarn install
     ```
-3. Configure app details and licensing rules in the provided setup files.
+3. Configure app details, licensing rules, and Sentry.io integration in the provided setup files.
 4. Start the development server:
     ```bash
     npm run dev
@@ -57,6 +59,7 @@ A modern TypeScript-based template for securely distributing Electron applicatio
 - **[Tailwind CSS](https://tailwindcss.com/)**: A utility-first CSS framework for rapid UI design.
 - **[Keygen.sh](https://keygen.sh/)**: For robust license generation and validation.
 - **[Bytenode](https://github.com/bytenode/bytenode)**: For securing TypeScript/JavaScript code by converting it into binary format.
+- **[Sentry.io](https://sentry.io/)**: For real-time error tracking and bug reporting in production.
 
 ### Contributions:
 
