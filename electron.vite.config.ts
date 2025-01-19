@@ -1,18 +1,34 @@
 import { resolve } from 'path'
 import { bytecodePlugin, defineConfig, externalizeDepsPlugin } from 'electron-vite'
 import react from '@vitejs/plugin-react'
+import { sentryVitePlugin } from '@sentry/vite-plugin'
+
+const sentryPluginConfig = {
+    org: 'electron-license-distribution-kit',
+    project: 'desktop',
+    ...(import.meta.env.SENTRY_AUTH_TOKEN
+        ? {
+              authToken: import.meta.env.MAIN_VITE_SENTRY_AUTH_TOKEN, // Use token if provided
+              release: import.meta.env.MAIN_VITE_RELEASE || '1.0.0', // Optional release version
+              include: './dist',
+              sourcemaps: {
+                  assets: './**/*',
+              },
+          }
+        : {}),
+}
 
 export default defineConfig({
     main: {
         build: {
-            sourcemap: false, // Turning source map false for now, because of warning from bytecodePlugin
+            sourcemap: true,
         },
-        plugins: [externalizeDepsPlugin(), bytecodePlugin()],
+        plugins: [externalizeDepsPlugin(), sentryVitePlugin(sentryPluginConfig), bytecodePlugin()],
     },
     preload: {
-        plugins: [externalizeDepsPlugin(), bytecodePlugin()],
+        plugins: [externalizeDepsPlugin(), sentryVitePlugin(sentryPluginConfig), bytecodePlugin()],
         build: {
-            sourcemap: false,
+            sourcemap: true,
             rollupOptions: {
                 input: {
                     index: resolve(__dirname, 'src/preload/index.ts'),
@@ -23,7 +39,7 @@ export default defineConfig({
     },
     renderer: {
         build: {
-            sourcemap: false,
+            sourcemap: true,
             rollupOptions: {
                 input: {
                     index: resolve(__dirname, 'src/renderer/index.html'),
@@ -36,6 +52,6 @@ export default defineConfig({
                 '@renderer': resolve('src/renderer/src'),
             },
         },
-        plugins: [react()],
+        plugins: [react(), sentryVitePlugin(sentryPluginConfig)],
     },
 })

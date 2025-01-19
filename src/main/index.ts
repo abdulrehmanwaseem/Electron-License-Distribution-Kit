@@ -3,11 +3,16 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import gateCreateWindowWithLicense from './licenseGate'
+import * as Sentry from '@sentry/electron/main'
 
 const gotTheLock = app.requestSingleInstanceLock()
 if (!gotTheLock) {
     app.quit()
 }
+
+Sentry.init({
+    dsn: 'https://dc81e33a46bacf3528dd039f97fdeb18@o4508669317218304.ingest.us.sentry.io/4508669319839744',
+})
 
 const isDev = import.meta.env.DEV
 
