@@ -5,13 +5,14 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
     main: {
         build: {
-            sourcemap: true,
+            sourcemap: false, // Turning source map false for now, because of warning from bytecodePlugin
         },
         plugins: [externalizeDepsPlugin(), bytecodePlugin()],
     },
     preload: {
         plugins: [externalizeDepsPlugin(), bytecodePlugin()],
         build: {
+            sourcemap: false,
             rollupOptions: {
                 input: {
                     index: resolve(__dirname, 'src/preload/index.ts'),
@@ -22,7 +23,7 @@ export default defineConfig({
     },
     renderer: {
         build: {
-            sourcemap: true,
+            sourcemap: false,
             rollupOptions: {
                 input: {
                     index: resolve(__dirname, 'src/renderer/index.html'),
